@@ -30,11 +30,30 @@ coin_height = coin.get_height()
 coin_x = random.randint(0,dis_width-coin_width)
 coin_y = -coin_height
 
+# initializing speed
+sprite_speed = 1
+coin_speed = 1
+
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+    # handle sprite movement
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] and sprite_x > 0:
+        sprite_x -= sprite_speed
+    if keys[pygame.K_RIGHT] and sprite_x < dis_width - sprite_width:
+        sprite_x += sprite_speed
+    
+    #  update the coin position
+    coin_y +=coin_speed
+    if coin_y > dis_width:
+        coin_x = random.randint(0,dis_width- coin_width)
+        coin_y =- coin_height
+        
+
 
     # draw other screens
     screen.blit(bg_img,(0,0))
